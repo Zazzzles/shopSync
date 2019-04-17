@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, RefreshControl} from 'react-native';
 
 //  Config
 import Layout from '../config/layout'
@@ -8,6 +8,7 @@ import Colors from '../config/colors'
 //  Components
 import Button from '../components/Button'
 import GroupItem from '../components/GroupItem'
+import PageLoading from '../components/PageLoading'
 
 const GROUPS_STUB = [
   { 
@@ -28,7 +29,20 @@ export default class Groups extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
+      refreshing: false
     };
+  }
+
+  componentDidMount = () => {
+    this.fetchData()
+  }
+
+  fetchData = () => {
+    this.setState({loading: true})
+    setTimeout(() => {
+      this.setState({loading: false})
+    }, 1500)
   }
 
   renderGroups = () => {
@@ -45,16 +59,30 @@ export default class Groups extends Component {
   }
 
   render() {
+    const { loading, refreshing } = this.state
     return (
-      <View style={styles.container}>
+      <ScrollView 
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={this.fetchData}
+        />
+      }
+       contentContainerStyle={styles.container}>
         <Text style={styles.headingText}> Groups </Text>
         <Button
           label={"Add"}
           style={styles.addButton}
           icon={'add'}
         />
-        {this.renderGroups()}
-      </View>
+        {
+          loading ? 
+          <PageLoading
+            placeholderCount={4}
+          /> : 
+          this.renderGroups()
+        }
+      </ScrollView>
     );
   }
 }

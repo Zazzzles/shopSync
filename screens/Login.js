@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Image, KeyboardAvoidingView } from 'react-native';
 
 //  Components
 import TextField from '../components/TextField'
@@ -25,7 +25,7 @@ export default class Login extends Component {
   }
 
   doSubmit = () => {
-    if(this.fieldsValid()){
+   // if(this.fieldsValid()){
       const { navigation } = this.props
       this.setState({loading: true})
       setTimeout(() => {
@@ -34,7 +34,7 @@ export default class Login extends Component {
         })
         navigation.navigate("Groups")
       }, 800)
-    }
+  //  }
   }
 
   fieldsValid = () => {
@@ -59,7 +59,7 @@ export default class Login extends Component {
         style={styles.bg}
       >
        <Image source={Logo} style={styles.logo}/>
-       <View style={styles.fieldContainer}>
+       <KeyboardAvoidingView style={styles.fieldContainer} behavior={'padding'}>
             <Text style={styles.signInText}>Sign in</Text>
             <TextField
               placeholder={"Email address"}
@@ -72,7 +72,7 @@ export default class Login extends Component {
                onChange={(password) => this.setState({password})}
             />
             <Text style={styles.signInText}>Or create an account</Text>
-        </View>
+        </KeyboardAvoidingView>
         <Text style={styles.errorText}>
         {errorText}
         </Text>

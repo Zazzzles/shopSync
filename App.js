@@ -6,7 +6,7 @@ import Groups from './screens/Groups'
 
 // Config
 const config = {
-  initialRouteName: "Groups",
+  initialRouteName: "Login",
   headerMode: "None"
 }
 
