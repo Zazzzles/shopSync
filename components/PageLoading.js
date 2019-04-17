@@ -19,7 +19,7 @@ export default class PageLoading extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        sliderMarginLeft: new Animated.Value(-20)
+        sliderMarginLeft: new Animated.Value(-60)
     };
   }
 
