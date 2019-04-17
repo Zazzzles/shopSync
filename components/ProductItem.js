@@ -11,6 +11,8 @@ import Badge from '../components/Badge'
 
 export default function ProductItem ({ label, fullfilled = false, onPress}) {
 
+    
+
     return (
       <TouchableOpacity 
         style={styles.container} 

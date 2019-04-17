@@ -5,6 +5,9 @@ import Login from './screens/Login'
 import Groups from './screens/Groups'
 import GroupDetail from './screens/GroupDetail'
 
+//  TODO: Qr code library :
+//  https://github.com/awesomejerry/react-native-qrcode-svg
+
 // Config
 const config = {
   initialRouteName: "Login",
