@@ -11,7 +11,7 @@ import Icon from '../components/icons/icons'
 export default function FAB ({ onPress, icon }) {
     return(
         <TouchableOpacity style={styles.container} onPress={() => onPress()}>
-            <Icon name={icon} size={27} color={'white'}/>
+            <Icon name={icon} size={30} color={'white'}/>
         </TouchableOpacity>
     )
 }
