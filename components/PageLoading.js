@@ -27,7 +27,7 @@ export default class PageLoading extends Component {
     this.startAnimation()
   }
 
-  startAnimation = (count) => {
+  startAnimation = () => {
     Animated.loop(
         Animated.timing(this.state.sliderMarginLeft, {
             toValue: 360,

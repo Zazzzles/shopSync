@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 
 //  Config
 import Layout from '../config/layout'
@@ -7,30 +7,39 @@ import Colors from '../config/colors'
 
 //  Components
 import Button from '../components/Button'
-import GroupItem from '../components/GroupItem'
 import PageLoading from '../components/PageLoading'
+import ProductItem from '../components/ProductItem'
+import FAB from '../components/FAB'
 
-const GROUPS_STUB = [
-  { 
-    name: "Home stuff", 
-    outstanding: 3,
-  },
-  { 
-    name: "Personal shopping",
-    outstanding: 0 
-  },
-  { 
-    name: "College",
-    outstanding: 2
-  }
-]
+const PRODUCTS_STUB = [
+    { 
+      name: "Toilet tissue", 
+      bought: false,
+    },
+    { 
+      name: "Oranges",
+      bought: false 
+    },
+    { 
+      name: "Toothpaste",
+      bought: true
+    },
+    { 
+        name: "Tinfoil",
+        bought: false
+      },
+      { 
+        name: "Bread",
+        bought: true
+      }
+  ]
 
-export default class Groups extends Component {
+export default class GroupDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
-      refreshing: false
+        loading: true,
+        refreshing: false
     };
   }
 
@@ -45,33 +54,27 @@ export default class Groups extends Component {
     }, 1500)
   }
 
-  navigateToDetails = (groupName) => {
-    const { navigation } = this.props
-    navigation.navigate('GroupDetail', { groupName })
-  }
-
-  leavingGroup = () => {
-      console.log("You are leaving this group");
-  }
-
   renderGroups = () => {
-    return GROUPS_STUB.map((item, index) => {
+    return PRODUCTS_STUB.map((item, index) => {
       return(
-        <GroupItem
+        <ProductItem
           key={index}
           label={item.name}
-          badgeCount={item.outstanding}
-          fullfilled={item.outstanding === 0}
-          onPress={() => this.navigateToDetails(item.name)}
+          fullfilled={item.bought}
+         // onPress={() => this.navigateToDetails(item.name)}
           onLeaveGroup={this.leavingGroup}
         />
       )
     })
   }
 
+
   render() {
     const { loading, refreshing } = this.state
+    const { groupName } = this.props.navigation.state.params
+    const { navigation } = this.props
     return (
+        <View>
       <ScrollView 
       refreshControl={
         <RefreshControl
@@ -80,7 +83,12 @@ export default class Groups extends Component {
         />
       }
        contentContainerStyle={styles.container}>
-        <Text style={styles.headingText}> Groups </Text>
+
+        <View style={styles.topbarContainer}>
+            <Text style={styles.headingText}> {groupName} </Text>
+        </View>
+       
+
         <Button
           label={"Add"}
           style={styles.addButton}
@@ -93,7 +101,13 @@ export default class Groups extends Component {
           /> : 
           this.renderGroups()
         }
+        
       </ScrollView>
+      <FAB
+            icon={'keyboard-arrow-left'}
+            onPress={() => navigation.goBack()}
+        />
+      </View>
     );
   }
 }
@@ -115,6 +129,8 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.primary, 
       width: '100%',
       marginBottom: 15,
+    },
+    topbarContainer:{
+        
     }
 })
-

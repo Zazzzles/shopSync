@@ -9,25 +9,25 @@ import Colors from '../config/colors'
 import Icon from '../components/icons/icons'
 import Badge from '../components/Badge'
 
-export default function GroupItem ({ label, badgeCount, fullfilled = false, onPress, onLeaveGroup}) {
+export default function ProductItem ({ label, fullfilled = false, onPress}) {
 
     return (
       <TouchableOpacity 
         style={styles.container} 
         onPress={onPress} 
         >
-            <Text style={styles.labelText}>
+            <Text style={[styles.labelText, fullfilled && styles.strikeThrough]}>
                 {label}
             </Text>
             <View style={styles.rightContainer}>
-                <Badge
-                    count={badgeCount}
+                {
+                    fullfilled && 
+                    <Badge
+                    count={0}
                     success={fullfilled}
-                />
-                <Icon
-                    name={"keyboard-arrow-right"}
-                    color={Colors.bgOffset}
-                />
+                     />
+                }
+                
             </View>
            
       </TouchableOpacity>
@@ -55,5 +55,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+    },
+    strikeThrough:{
+        textDecorationLine: 'line-through', 
+        textDecorationStyle: 'solid'
     }
 })
