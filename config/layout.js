@@ -2,12 +2,28 @@ import { Dimensions } from 'react-native'
 var {height, width} = Dimensions.get('window');
 
 export default {
-    fullscreen:{
+    fullscreen: {
         width,
         height
     },
-    center:{
+    fullscreenPadding: {
+        paddingHorizontal: 15,
+    },
+    center: {
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    font:{
+        fontFamily: 'sans-serif',
+    },
+    shadow:{
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+        elevation: 3,
     }
 }

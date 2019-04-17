@@ -25,7 +25,6 @@ export default class Login extends Component {
   }
 
   doSubmit = () => {
-    
     if(this.fieldsValid()){
       const { navigation } = this.props
       this.setState({loading: true})
@@ -59,11 +58,7 @@ export default class Login extends Component {
         source={BG}
         style={styles.bg}
       >
-       
-        <Image  source={Logo} style={styles.logo}/>
-
-     
-
+       <Image source={Logo} style={styles.logo}/>
        <View style={styles.fieldContainer}>
             <Text style={styles.signInText}>Sign in</Text>
             <TextField
@@ -78,19 +73,14 @@ export default class Login extends Component {
             />
             <Text style={styles.signInText}>Or create an account</Text>
         </View>
-
         <Text style={styles.errorText}>
         {errorText}
         </Text>
-
         <Button
           label={"Login"}
           onPress={() => this.doSubmit()}
           loading={loading}
         />
-
-       
-
       </ImageBackground>
     );
   }
@@ -102,7 +92,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingVertical: 40,
+        paddingTop: 40,
+        paddingBottom: 80
     },
     logo:{
         width: 90,
@@ -119,8 +110,10 @@ const styles = StyleSheet.create({
     signInText:{
       color: 'white',
       fontSize: 15,
+      ...Layout.font
     },
     errorText:{
-      color: Colors.accent
+      color: Colors.accent,
+      ...Layout.font
     }
 })
