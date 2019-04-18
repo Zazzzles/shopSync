@@ -10,23 +10,26 @@ import Icon from '../components/icons/icons'
 import Badge from '../components/Badge'
 
 export default function ProductItem ({ label, fullfilled = false, onPress}) {
-
     
+    const [ isFullFilled, setFullFilled ] = useState(fullfilled)
 
     return (
       <TouchableOpacity 
         style={styles.container} 
-        onPress={onPress} 
+        onPress={() => {
+            setFullFilled(!isFullFilled)
+            onPress()
+        }} 
         >
-            <Text style={[styles.labelText, fullfilled && styles.strikeThrough]}>
+            <Text style={[styles.labelText, isFullFilled && styles.strikeThrough]}>
                 {label}
             </Text>
             <View style={styles.rightContainer}>
                 {
-                    fullfilled && 
+                    isFullFilled && 
                     <Badge
                     count={0}
-                    success={fullfilled}
+                    success={isFullFilled}
                      />
                 }
                 
