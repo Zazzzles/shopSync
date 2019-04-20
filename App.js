@@ -10,7 +10,7 @@ import GroupDetail from './screens/GroupDetail'
 
 // Config
 const config = {
-  initialRouteName: "Groups",
+  initialRouteName: "Login",
   headerMode: "None"
 }
 
