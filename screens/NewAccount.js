@@ -13,7 +13,7 @@ import Colors from '../config/colors'
 import Logo from '../assets/logo.png'
 import BG from '../assets/login-bg.png'
 
-export default class Login extends Component {
+export default class NewAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ export default class Login extends Component {
         this.setState({
           loading: false
         })
-        navigation.navigate("Groups")
+        navigation.navigate("Login")
       }, 800)
   //  }
   }
@@ -51,12 +51,6 @@ export default class Login extends Component {
     return true
   }
 
-  createAccount = () =>{
-    console.log("Creating account")
-    const { navigation } = this.props
-    navigation.navigate("NewAccount")
-  }
-
   render() {
     const { email, password, errorText, loading } = this.state
     return (
@@ -66,7 +60,7 @@ export default class Login extends Component {
       >
        <Image source={Logo} style={styles.logo}/>
        <KeyboardAvoidingView style={styles.fieldContainer} behavior={'padding'}>
-            <Text style={styles.signInText}>Sign in</Text>
+            <Text style={styles.signInText}>New account</Text>
             <TextField
               placeholder={"Email address"}
               value={email}
@@ -77,16 +71,14 @@ export default class Login extends Component {
                value={password}
                onChange={(password) => this.setState({password})}
             />
-            <TouchableOpacity onPress={() => this.createAccount()}>
-              <Text style={styles.signInText}>Or create an account</Text>
-            </TouchableOpacity>
+           
             
         </KeyboardAvoidingView>
         <Text style={styles.errorText}>
         {errorText}
         </Text>
         <Button
-          label={"Login"}
+          label={"Sign up"}
           onPress={() => this.doSubmit()}
           loading={loading}
         />
