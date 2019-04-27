@@ -12,7 +12,6 @@ class FirebaseManager extends Container{
     }
 
     init(){
-        console.log(Config.FIREBASE_APIKEY)
         let config = {  
             apiKey: Config.FIREBASE_APIKEY,
             authDomain: Config.FIREBASE_AUTHDOMAIN,
