@@ -1,8 +1,7 @@
 import { Container } from 'unstated'
 import * as Firebase from 'firebase/app';
 import 'firebase/auth';
-import env from '../env'
-
+import Config from 'react-native-config'
 class FirebaseManager extends Container{
     constructor(props){
         super(props)
@@ -13,11 +12,12 @@ class FirebaseManager extends Container{
     }
 
     init(){
+        console.log(Config.FIREBASE_APIKEY)
         let config = {  
-            apiKey: env.FIREBASE_APIKEY,
-            authDomain: env.FIREBASE_AUTHDOMAIN,
-            databaseURL: env.FIREBASE_DBURL,
-            projectId: env.FIREBASE_PROJECTID,
+            apiKey: Config.FIREBASE_APIKEY,
+            authDomain: Config.FIREBASE_AUTHDOMAIN,
+            databaseURL: Config.FIREBASE_DBURL,
+            projectId: Config.FIREBASE_PROJECTID,
             storageBucket: '',
             messagingSenderId: ''
           };
