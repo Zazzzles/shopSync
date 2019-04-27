@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, ImageBackground, Image, KeyboardAvoidingView, T
 //  Components
 import TextField from '../components/TextField'
 import Button from '../components/Button'
+import Notification from '../components/Notification'
 
 //  Config
 import Layout from '../config/layout'
@@ -23,7 +24,6 @@ export default class NewAccount extends Component {
     this.state = {
       email: '',
       password: '',
-      errorText: '',
       loading: false
     };
   }
@@ -35,13 +35,17 @@ export default class NewAccount extends Component {
       this.setState({loading: true})
       const registerStatus = await register(email, password)
       if(registerStatus.success){
-        //  TODO: Popup to confirm registration
+        this.notification.show('success', 'Account created!')
+        setTimeout(() => {
+          this.setState({
+            loading: false
+          }, () =>  navigation.navigate("Login"))
+        }, 700)
+      }else{
         this.setState({
           loading: false
-        }, () =>  navigation.navigate("Login"))
-      }else{
-        console.log(registerStatus.message)
-        //  TODO: Popup for registration failure
+        })
+        this.notification.show('error', registerStatus.message.split('Error:')[1])
       }
   }
 
@@ -49,18 +53,19 @@ export default class NewAccount extends Component {
     const { email, password } = this.state
     this.setState({errorText: ''})
     if(email === ''){
-      this.setState({errorText: 'Enter an email'})
+      this.notification.show('error', 'Enter an email')
       return(false)
     }
     if(password === ''){
-      this.setState({errorText: 'Enter a password'})
+      this.notification.show('error', 'Enter a password')
       return(false)
     }
     return true
   }
 
   render() {
-    const { email, password, errorText, loading } = this.state
+    const { email, password, loading } = this.state
+    const { navigation } = this.props
     return (
       <ImageBackground
         source={BG}
@@ -72,26 +77,26 @@ export default class NewAccount extends Component {
             <TextField
               placeholder={"Email address"}
               value={email}
-              onChange={(email) => this.setState({email})}
+              onChangeText={(email) => this.setState({email})}
             />
             <TextField
                placeholder={"Password"}
                value={password}
-               onChange={(password) => this.setState({password})}
+               secureTextEntry
+               onChangeText={(password) => this.setState({password})}
             />
 
             <Text style={styles.disclaimer}>Your email address will only ever be used for login</Text>
-           
-            
         </KeyboardAvoidingView>
-        <Text style={styles.errorText}>
-        {errorText}
-        </Text>
         <Button
           label={"Sign up"}
           onPress={() => this.doSubmit()}
           loading={loading}
         />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Text style={styles.backToLogin}>Login</Text>
+        </TouchableOpacity>
+        <Notification ref={(elem) => this.notification = elem}/>
       </ImageBackground>
     );
   }
@@ -128,6 +133,10 @@ const styles = StyleSheet.create({
       fontSize: 10,
       textAlign: 'center',
       ...Layout.font
+    },
+    backToLogin:{
+      color: 'white',
+      fontSize: 15,
     },
     errorText:{
       color: Colors.accent,

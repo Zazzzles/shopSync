@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, ImageBackground, Image, KeyboardAvoidingView, T
 //  Components
 import TextField from '../components/TextField'
 import Button from '../components/Button'
+import Notification from '../components/Notification'
 
 //  Config
 import Layout from '../config/layout'
@@ -22,7 +23,6 @@ export default class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      errorText: '',
       loading: false
     };
   }
@@ -32,27 +32,27 @@ export default class Login extends Component {
   }
 
   doSubmit = () => {
-   // if(this.fieldsValid()){
-      const { navigation } = this.props
-      this.setState({loading: true})
-      setTimeout(() => {
-        this.setState({
-          loading: false
-        })
-        navigation.navigate("Groups")
-      }, 800)
-  //  }
+    if(this.fieldsValid()){
+        const { navigation } = this.props
+        this.setState({loading: true})
+        setTimeout(() => {
+          this.setState({
+            loading: false
+          })
+          navigation.navigate("Groups")
+        }, 800)
+    }
   }
 
   fieldsValid = () => {
     const { email, password } = this.state
     this.setState({errorText: ''})
     if(email === ''){
-      this.setState({errorText: 'Enter an email'})
+      this.notification.show('error', 'Enter an email')
       return(false)
     }
     if(password === ''){
-      this.setState({errorText: 'Enter a password'})
+      this.notification.show('error', 'Enter a password')
       return(false)
     }
     return true
@@ -64,7 +64,7 @@ export default class Login extends Component {
   }
 
   render() {
-    const { email, password, errorText, loading } = this.state
+    const { email, password, loading } = this.state
     return (
       <ImageBackground
         source={BG}
@@ -76,26 +76,25 @@ export default class Login extends Component {
             <TextField
               placeholder={"Email address"}
               value={email}
-              onChange={(email) => this.setState({email})}
+              onChangeText={(email) => this.setState({email})}
             />
             <TextField
                placeholder={"Password"}
                value={password}
-               onChange={(password) => this.setState({password})}
+               secureTextEntry
+               onChangeText={(password) => this.setState({password})}
             />
             <TouchableOpacity onPress={() => this.createAccount()}>
               <Text style={styles.signInText}>Or create an account</Text>
             </TouchableOpacity>
             
         </KeyboardAvoidingView>
-        <Text style={styles.errorText}>
-        {errorText}
-        </Text>
         <Button
           label={"Login"}
           onPress={() => this.doSubmit()}
           loading={loading}
         />
+        <Notification ref={(elem) => this.notification = elem}/>
       </ImageBackground>
     );
   }

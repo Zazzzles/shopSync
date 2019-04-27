@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 
-export default function TextField ({ placeholder, value, onChange }) {
+export default function TextField (props) {
     return (
       <View style={styles.container}>
             <TextInput
-                placeholder={placeholder}
-                value={value}
-                onChangeText={onChange}
+              {...props}
             />
       </View>
     );
