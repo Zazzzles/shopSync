@@ -1,6 +1,7 @@
 import { Container } from 'unstated'
 import * as Firebase from 'firebase/app';
 import 'firebase/auth';
+import env from '../env'
 
 class FirebaseManager extends Container{
     constructor(props){
@@ -13,10 +14,10 @@ class FirebaseManager extends Container{
 
     init(){
         let config = {  
-            apiKey: 'AIzaSyDysLZdvhZ73_G7Etx7H13GDfLQku7Enj0',
-            authDomain: 'shopsync-e1b2b.firebaseapp.com',
-            databaseURL: 'shopsync-e1b2b.firebaseio.com',
-            projectId: 'shopsync-e1b2b',
+            apiKey: env.FIREBASE_APIKEY,
+            authDomain: env.FIREBASE_AUTHDOMAIN,
+            databaseURL: env.FIREBASE_DBURL,
+            projectId: env.FIREBASE_PROJECTID,
             storageBucket: '',
             messagingSenderId: ''
           };

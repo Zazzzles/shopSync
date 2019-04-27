@@ -40,6 +40,7 @@ export default class NewAccount extends Component {
           loading: false
         }, () =>  navigation.navigate("Login"))
       }else{
+        console.log(registerStatus.message)
         //  TODO: Popup for registration failure
       }
   }
