@@ -13,6 +13,9 @@ import Colors from '../config/colors'
 import Logo from '../assets/logo.png'
 import BG from '../assets/login-bg.png'
 
+//  Services
+import FirebaseManager from '../services/FirebaseManager'
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +25,10 @@ export default class Login extends Component {
       errorText: '',
       loading: false
     };
+  }
+
+  componentDidMount = () => {
+    FirebaseManager.init()
   }
 
   doSubmit = () => {
@@ -52,7 +59,6 @@ export default class Login extends Component {
   }
 
   createAccount = () =>{
-    console.log("Creating account")
     const { navigation } = this.props
     navigation.navigate("NewAccount")
   }

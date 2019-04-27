@@ -1,4 +1,4 @@
-
+import FirebaseManager from './FirebaseManager'
 //  User
 
 export async function login(email = "", password = ""){
@@ -6,7 +6,20 @@ export async function login(email = "", password = ""){
 }
 
 export async function register(email = "", password = ""){
-
+    try{
+        await FirebaseManager.doSignUp(email, password)
+        console.log("Register success");
+        return {
+            success: true,
+            message: "User account created"
+        }
+    }catch(err){
+        console.log("Register failure");
+        return {
+            success: false,
+            message: err.toString()
+        }
+    }
 }
 
 //  Groups

@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 var {height, width} = Dimensions.get('window');
 
 export default {
@@ -14,7 +14,7 @@ export default {
         justifyContent: 'center',
     },
     font:{
-        fontFamily: 'sans-serif',
+        //fontFamily: Platform.OS !== 'ios' ? 'sans-serif' : 'san-francisco'
     },
     shadow:{
         shadowColor: "#000",

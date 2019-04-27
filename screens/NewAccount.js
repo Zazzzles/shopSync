@@ -13,6 +13,10 @@ import Colors from '../config/colors'
 import Logo from '../assets/logo.png'
 import BG from '../assets/login-bg.png'
 
+//  Services
+import FirebaseManager from '../services/FirebaseManager'
+import { register } from '../services/midlayer'
+
 export default class NewAccount extends Component {
   constructor(props) {
     super(props);
@@ -24,17 +28,20 @@ export default class NewAccount extends Component {
     };
   }
 
-  doSubmit = () => {
+  doSubmit = async() => {
    // if(this.fieldsValid()){
       const { navigation } = this.props
+      const { email, password } = this.state
       this.setState({loading: true})
-      setTimeout(() => {
+      const registerStatus = await register(email, password)
+      if(registerStatus.success){
+        //  TODO: Popup to confirm registration
         this.setState({
           loading: false
-        })
-        navigation.navigate("Login")
-      }, 800)
-  //  }
+        }, () =>  navigation.navigate("Login"))
+      }else{
+        //  TODO: Popup for registration failure
+      }
   }
 
   fieldsValid = () => {
@@ -71,6 +78,8 @@ export default class NewAccount extends Component {
                value={password}
                onChange={(password) => this.setState({password})}
             />
+
+            <Text style={styles.disclaimer}>Your email address will only ever be used for login</Text>
            
             
         </KeyboardAvoidingView>
@@ -111,6 +120,12 @@ const styles = StyleSheet.create({
     signInText:{
       color: 'white',
       fontSize: 15,
+      ...Layout.font
+    },
+    disclaimer:{
+      color: 'white',
+      fontSize: 10,
+      textAlign: 'center',
       ...Layout.font
     },
     errorText:{
