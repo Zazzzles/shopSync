@@ -25,11 +25,10 @@ class FirebaseManager extends Container{
     }
 
     bindAuthListener = (signInCallback) => {
-        let self = this
-        this.fbInstance.auth().onAuthStateChanged(function(user) {
+        this.fbInstance.auth().onAuthStateChanged((user) => {
             if (user) {
                 console.log("user sign in detected")
-                self.setState({currentUser: user}, () => signInCallback(user))
+                this.setState({currentUser: user}, () => signInCallback(user))
             } else {
                 console.log("No user found")
                 signInCallback()
