@@ -2,7 +2,20 @@ import FirebaseManager from './FirebaseManager'
 //  User
 
 export async function login(email = "", password = ""){
-
+    try{
+        await FirebaseManager.dologin(email, password)
+        console.log("Login success");
+        return {
+            success: true,
+            message: "User logged in"
+        }
+    }catch(err){
+        console.log("Login failure");
+        return {
+            success: false,
+            message: err.toString()
+        }
+    }
 }
 
 export async function register(email = "", password = ""){

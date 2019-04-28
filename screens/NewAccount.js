@@ -15,7 +15,6 @@ import Logo from '../assets/logo.png'
 import BG from '../assets/login-bg.png'
 
 //  Services
-import FirebaseManager from '../services/FirebaseManager'
 import { register } from '../services/midlayer'
 
 export default class NewAccount extends Component {

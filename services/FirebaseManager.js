@@ -6,12 +6,12 @@ class FirebaseManager extends Container{
     constructor(props){
         super(props)
         this.state = {
-
+            currentUser: null
         }
         this.fbInstance = null
     }
 
-    init(){
+    init(signInCallback){
         let config = {  
             apiKey: Config.FIREBASE_APIKEY,
             authDomain: Config.FIREBASE_AUTHDOMAIN,
@@ -21,13 +21,15 @@ class FirebaseManager extends Container{
             messagingSenderId: ''
           };
           this.fbInstance = Firebase.initializeApp(config); 
-          this.bindAuthListener() 
+          this.bindAuthListener(signInCallback) 
     }
 
-    bindAuthListener = () => {
+    bindAuthListener = (signInCallback) => {
+        let self = this
         this.fbInstance.auth().onAuthStateChanged(function(user) {
             if (user) {
                 console.log("user sign in detected")
+                self.setState({currentUser: user}, () => signInCallback(user))
             } else {
                 console.log("No user found")
             }
@@ -43,7 +45,7 @@ class FirebaseManager extends Container{
     }
 
     dologin = (email = '', password = '') => {
-
+        return this.fbInstance.auth().signInWithEmailAndPassword(email, password)
     }
 
 

@@ -16,6 +16,7 @@ import BG from '../assets/login-bg.png'
 
 //  Services
 import FirebaseManager from '../services/FirebaseManager'
+import { login } from '../services/midlayer'
 
 export default class Login extends Component {
   constructor(props) {
@@ -28,19 +29,28 @@ export default class Login extends Component {
   }
 
   componentDidMount = () => {
-    FirebaseManager.init()
+    FirebaseManager.init((user) => {
+        this.props.navigation.navigate("Groups")
+    })
   }
 
-  doSubmit = () => {
+  doSubmit = async () => {
     if(this.fieldsValid()){
+        const { email, password } = this.state
         const { navigation } = this.props
         this.setState({loading: true})
-        setTimeout(() => {
+        const loginStatus = await login(email, password)
+        if(loginStatus.success){
           this.setState({
             loading: false
           })
           navigation.navigate("Groups")
-        }, 800)
+        }else{
+          this.notification.show('error', loginStatus.message.split('Error:')[1])
+          this.setState({
+            loading: false
+          })
+        }
     }
   }
 
