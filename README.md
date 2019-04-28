@@ -1,6 +1,6 @@
 # Shopsync
 
-Shopsync is an app for synchronizing shopping lists in real time between multiple people. 
+Shopsync is a cross-platform app for synchronizing shopping lists in real time between multiple people. 
 
 This project is a work in progress and recently open-sourced.
 
