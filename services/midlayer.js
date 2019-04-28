@@ -1,20 +1,21 @@
 import FirebaseManager from './FirebaseManager'
 //  User
 
+function statusPkg(status, message){
+    return {
+        success: status,
+        message
+    }
+}
+
 export async function login(email = "", password = ""){
     try{
         await FirebaseManager.dologin(email, password)
         console.log("Login success");
-        return {
-            success: true,
-            message: "User logged in"
-        }
+        return statusPkg(true, 'User logged in')
     }catch(err){
         console.log("Login failure");
-        return {
-            success: false,
-            message: err.toString()
-        }
+        return statusPkg(false, err.toString())
     }
 }
 
@@ -22,16 +23,10 @@ export async function register(email = "", password = ""){
     try{
         await FirebaseManager.doSignUp(email, password)
         console.log("Register success");
-        return {
-            success: true,
-            message: "User account created"
-        }
+        return statusPkg(true, 'User account created')
     }catch(err){
         console.log("Register failure");
-        return {
-            success: false,
-            message: err.toString()
-        }
+        return statusPkg(false, err.toString())
     }
 }
 

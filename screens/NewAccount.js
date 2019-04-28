@@ -35,11 +35,11 @@ export default class NewAccount extends Component {
       const registerStatus = await register(email, password)
       if(registerStatus.success){
         this.notification.show('success', 'Account created!')
-        setTimeout(() => {
-          this.setState({
-            loading: false
-          }, () =>  navigation.navigate("Login"))
-        }, 700)
+        // setTimeout(() => {
+        //   this.setState({
+        //     loading: false
+        //   }, () =>  navigation.navigate("Login"))
+        // }, 700)
       }else{
         this.setState({
           loading: false

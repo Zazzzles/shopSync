@@ -29,8 +29,13 @@ export default class Login extends Component {
   }
 
   componentDidMount = () => {
+    this.setState({loading: true})
     FirebaseManager.init((user) => {
+      if(user){
         this.props.navigation.navigate("Groups")
+      }else{
+        this.setState({loading: false})
+      }
     })
   }
 

@@ -32,6 +32,7 @@ class FirebaseManager extends Container{
                 self.setState({currentUser: user}, () => signInCallback(user))
             } else {
                 console.log("No user found")
+                signInCallback()
             }
           });
     }
